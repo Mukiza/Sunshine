@@ -9,4 +9,7 @@
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key" translatable="false">location</string>
     <string name="pref_location_default" translatable="false">kampala</string>
+    <string name="pref_units_title">Units</string>
+    <string name="pref_units_key">units</string>
+    <string name="pref_units_metric">metric</string>
 </resources>

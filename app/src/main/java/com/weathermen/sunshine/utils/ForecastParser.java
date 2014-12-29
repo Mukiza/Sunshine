@@ -1,7 +1,5 @@
 package com.weathermen.sunshine.utils;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +8,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ForecastParser {
+    private String unitType;
+    private String forecastJsonStr;
+
+    public ForecastParser(String unitType, String forecastJsonStr){
+        this.unitType = unitType;
+        this.forecastJsonStr = forecastJsonStr;
+    }
 
     private static String getReadableDateString(long time) {
         Date date = new Date(time * 1000);
@@ -17,11 +22,17 @@ public class ForecastParser {
         return format.format(date);
     }
 
-    private static String formatHighLows(double high, double low) {
+    private String formatHighLows(double high, double low) {
+        String IMPERIAL = "imperial";
+
+        if (this.unitType.equals(IMPERIAL)) {
+            high = (high * 1.8) + 32;
+            low = (low * 1.8) + 32;
+        }
         return Math.round(high) + "/" + Math.round(low);
     }
 
-    public static String[] getWeatherDataFromJson(String forecastJsonStr)
+    public  String[] getWeatherDataFromJson()
             throws JSONException {
 
         final String OWM_LIST = "list";
@@ -32,7 +43,7 @@ public class ForecastParser {
         final String OWM_DATETIME = "dt";
         final String OWM_DESCRIPTION = "main";
 
-        JSONObject forecastJson = new JSONObject(forecastJsonStr);
+        JSONObject forecastJson = new JSONObject(this.forecastJsonStr);
         JSONArray weatherArray = forecastJson.getJSONArray(OWM_LIST);
         int jsonResultLen = weatherArray.length();
         String[] resultString = new String[jsonResultLen];
@@ -51,10 +62,11 @@ public class ForecastParser {
             description = weatherObject.getString(OWM_DESCRIPTION);
 
             JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
+
             double high = temperatureObject.getDouble(OWM_MAX);
             double low = temperatureObject.getDouble(OWM_MIN);
 
-            highAndLow = formatHighLows(high, low);
+            highAndLow = this.formatHighLows(high, low);
             resultString[i] = day + " - " + description + " - " + highAndLow;
         }
 

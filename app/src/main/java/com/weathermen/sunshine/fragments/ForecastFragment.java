@@ -118,7 +118,12 @@ public class ForecastFragment extends Fragment {
             }
             String forecastJsonStr = new ForecastService().getForecasts(params);
             try {
-                return ForecastParser.getWeatherDataFromJson(forecastJsonStr);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String unitType = sharedPreferences
+                        .getString(getString(R.string.pref_units_key),
+                        getString(R.string.pref_units_metric));
+
+                return new ForecastParser(unitType, forecastJsonStr).getWeatherDataFromJson();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
