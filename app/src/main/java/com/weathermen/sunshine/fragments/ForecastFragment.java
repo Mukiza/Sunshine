@@ -1,8 +1,10 @@
 package com.weathermen.sunshine.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -36,6 +38,13 @@ public class ForecastFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
+    @Override
+    public void onStart() {
+        updateForecasts();
+        super.onStart();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -45,11 +54,26 @@ public class ForecastFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_settings) {
-            startActivity(new Intent(getActivity(), Settings.class));
-            return true;
+
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), Settings.class));
+                return true;
+            case R.id.action_refresh:
+                updateForecasts();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateForecasts() {
+        FetchForecastTask fetchForecastTask = new FetchForecastTask();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        String location = sharedPreferences.getString(getString(R.string.pref_location_key),getString(R.string.pref_location_default));
+
+        fetchForecastTask.execute(location);
     }
 
     @Override
