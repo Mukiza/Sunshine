@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.weathermen.sunshine.R;
 import com.weathermen.sunshine.activities.ForecastDetail;
+import com.weathermen.sunshine.activities.Settings;
 import com.weathermen.sunshine.services.ForecastService;
 import com.weathermen.sunshine.utils.ForecastParser;
 
@@ -29,9 +30,6 @@ import java.util.List;
 public class ForecastFragment extends Fragment {
     ArrayAdapter<String> adapter;
 
-    public ForecastFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,15 +40,18 @@ public class ForecastFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_forecast_fragment, menu);
+        inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if(id == R.id.action_settings) {
+            startActivity(new Intent(getActivity(), Settings.class));
+            return true;
+        }
 
-        new FetchForecastTask().execute("Kampala,uganda");
-
-        return id == R.id.action_refresh || super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -24,8 +24,17 @@
             android:parentActivityName=".activities.Main" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.weathermen.sunshine.activities.Main" />
+                android:value=".activities.Main" />
         </activity>
+        <activity
+            android:name=".activities.Settings"
+            android:label="@string/forecast_action_settings"
+            android:parentActivityName=".activities.Main" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.Main" />
+        </activity>
+
     </application>
 
 </manifest>
