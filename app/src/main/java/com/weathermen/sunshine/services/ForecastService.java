@@ -16,25 +16,10 @@ public class ForecastService {
     public String getForecasts(String[] params) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
-        String format = "json";
-        String units = "metric";
-        Integer numDays = 7;
 
         try {
-            final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
-            final String QUERY_PARAM = "q";
-            final String FORMAT_PARAM = "mode";
-            final String UNITS_PARAM = "units";
-            final String COUNT_PARAM = "cnt";
 
-            Uri uri = Uri.parse(BASE_URL).buildUpon()
-                    .appendQueryParameter(QUERY_PARAM, params[0])
-                    .appendQueryParameter(FORMAT_PARAM, format)
-                    .appendQueryParameter(UNITS_PARAM, units)
-                    .appendQueryParameter(COUNT_PARAM, numDays.toString())
-                    .build();
-
-            URL url = new URL(uri.toString());
+            URL url = new URL(getUri(params).toString());
 
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
@@ -65,5 +50,16 @@ public class ForecastService {
             }
         }
         return null;
+    }
+
+    private Uri getUri(String [] params) {
+        final String BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+
+        return Uri.parse(BASE_URL).buildUpon()
+                .appendQueryParameter("q", params[0])
+                .appendQueryParameter("mode", "json")
+                .appendQueryParameter("units", "metric")
+                .appendQueryParameter("cnt", Integer.toString(7))
+                .build();
     }
 }
