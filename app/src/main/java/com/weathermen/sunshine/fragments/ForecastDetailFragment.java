@@ -1,9 +1,11 @@
 package com.weathermen.sunshine.fragments;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,9 +16,11 @@ import android.widget.TextView;
 
 import com.weathermen.sunshine.R;
 import com.weathermen.sunshine.activities.Settings;
-import com.weathermen.sunshine.factories.ImplicitMapIntentFactory;
+import com.weathermen.sunshine.factories.intents.ShareIntentFactory;
 
 public class ForecastDetailFragment extends Fragment {
+    private final String LOG_TAG = ForecastDetailFragment.class.getSimpleName();
+    private String forecastDetail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,16 @@ public class ForecastDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_share, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.menu_item_share);
+        ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+
+        if(shareActionProvider != null) {
+            shareActionProvider.setShareIntent(new ShareIntentFactory(forecastDetail).getIntent());
+        }else {
+            Log.d(LOG_TAG, "Share action provider is null");
+        }
     }
 
     @Override
@@ -49,7 +63,7 @@ public class ForecastDetailFragment extends Fragment {
         Intent intent = getActivity().getIntent();
 
         if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            String forecastDetail = intent.getStringExtra(Intent.EXTRA_TEXT);
+            forecastDetail = intent.getStringExtra(Intent.EXTRA_TEXT);
             TextView view = (TextView) rootView.findViewById(R.id.forecast_detail_text);
             view.setText(forecastDetail);
         }
