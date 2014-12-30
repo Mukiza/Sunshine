@@ -1,4 +1,4 @@
-package com.weathermen.sunshine.factories.intents;
+package com.weathermen.sunshine.intents;
 
 import android.content.Intent;
 

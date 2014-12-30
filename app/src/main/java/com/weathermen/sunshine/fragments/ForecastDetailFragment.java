@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.weathermen.sunshine.R;
 import com.weathermen.sunshine.activities.Settings;
-import com.weathermen.sunshine.factories.intents.ShareIntent;
+import com.weathermen.sunshine.intents.ShareIntent;
 
 public class ForecastDetailFragment extends Fragment {
     private final String LOG_TAG = ForecastDetailFragment.class.getSimpleName();

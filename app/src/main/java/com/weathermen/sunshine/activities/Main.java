@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.weathermen.sunshine.R;
-import com.weathermen.sunshine.factories.intents.MapLocationIntent;
+import com.weathermen.sunshine.intents.MapLocationIntent;
 import com.weathermen.sunshine.fragments.ForecastFragment;
 
 
