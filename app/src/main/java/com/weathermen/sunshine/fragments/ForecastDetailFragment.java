@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.weathermen.sunshine.R;
 import com.weathermen.sunshine.activities.Settings;
-import com.weathermen.sunshine.factories.intents.ShareIntentFactory;
+import com.weathermen.sunshine.factories.intents.ShareIntent;
 
 public class ForecastDetailFragment extends Fragment {
     private final String LOG_TAG = ForecastDetailFragment.class.getSimpleName();
@@ -38,7 +38,7 @@ public class ForecastDetailFragment extends Fragment {
         ShareActionProvider shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
 
         if(shareActionProvider != null) {
-            shareActionProvider.setShareIntent(new ShareIntentFactory(forecastDetail).getIntent());
+            shareActionProvider.setShareIntent(new ShareIntent(forecastDetail).getIntent());
         }else {
             Log.d(LOG_TAG, "Share action provider is null");
         }

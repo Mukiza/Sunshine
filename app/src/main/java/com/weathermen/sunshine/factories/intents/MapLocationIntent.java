@@ -8,12 +8,12 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class ImplicitMapIntentFactory {
+public class MapLocationIntent {
     private PackageManager packageManager;
     private String defaultLocationKey;
     private String locationKey;
 
-    public ImplicitMapIntentFactory(PackageManager packageManager, String locationKey, String defaultLocationKey) {
+    public MapLocationIntent(PackageManager packageManager, String locationKey, String defaultLocationKey) {
         this.packageManager = packageManager;
         this.defaultLocationKey = defaultLocationKey;
         this.locationKey = locationKey;

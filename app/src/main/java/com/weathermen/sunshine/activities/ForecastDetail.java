@@ -3,11 +3,10 @@ package com.weathermen.sunshine.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.weathermen.sunshine.R;
-import com.weathermen.sunshine.factories.intents.ImplicitMapIntentFactory;
+import com.weathermen.sunshine.factories.intents.MapLocationIntent;
 import com.weathermen.sunshine.fragments.ForecastDetailFragment;
 
 public class ForecastDetail extends ActionBarActivity {
@@ -28,7 +27,7 @@ public class ForecastDetail extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_map) {
 
-            ImplicitMapIntentFactory mapIntentFactory = new ImplicitMapIntentFactory(
+            MapLocationIntent mapIntentFactory = new MapLocationIntent(
                     getPackageManager(),
                     getString(R.string.pref_location_key),
                     getString(R.string.pref_location_default)

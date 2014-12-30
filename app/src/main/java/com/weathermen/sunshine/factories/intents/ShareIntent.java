@@ -2,11 +2,11 @@ package com.weathermen.sunshine.factories.intents;
 
 import android.content.Intent;
 
-public class ShareIntentFactory {
+public class ShareIntent {
 
     private String forecast;
 
-    public ShareIntentFactory(String forecast){
+    public ShareIntent(String forecast){
         this.forecast = forecast;
     }
 
