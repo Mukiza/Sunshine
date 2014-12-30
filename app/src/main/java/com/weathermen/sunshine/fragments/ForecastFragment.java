@@ -2,6 +2,7 @@ package com.weathermen.sunshine.fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -54,17 +55,11 @@ public class ForecastFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                startActivity(new Intent(getActivity(), Settings.class));
-                return true;
-            case R.id.action_refresh:
+            if (item.getItemId() == R.id.action_refresh) {
                 updateForecasts();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updateForecasts() {
