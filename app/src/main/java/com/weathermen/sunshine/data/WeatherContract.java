@@ -8,9 +8,9 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class ForecastContract {
+public class WeatherContract {
 
-    public static final String CONTENT_AUTHORITY = "com.example.android.sunshine.app";
+    public static final String CONTENT_AUTHORITY = "com.weathermen.sunshine";
 
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_WEATHER = "weather";
@@ -43,6 +43,16 @@ public class ForecastContract {
 
         public static final String COLUMN_COORD_LAT = "coord_lat";
         public static final String COLUMN_COORD_LONG = "coord_long";
+
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
+
+        public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+        public static final String CONTENT_TYPE = "vnd.android.cursor.dir/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+
+        public static Uri buildLocationUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
     }
 
     public static final class WeatherEntry implements BaseColumns {
@@ -91,8 +101,7 @@ public class ForecastContract {
             return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
         }
 
-        public static Uri buildWeatherLocationWithStartDate(
-                String locationSetting, String startDate) {
+        public static Uri buildWeatherLocationWithStartDate(String locationSetting, String startDate) {
             return CONTENT_URI.buildUpon().appendPath(locationSetting)
                     .appendQueryParameter(COLUMN_DATETEXT, startDate).build();
         }

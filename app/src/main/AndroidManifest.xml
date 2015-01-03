@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.weathermen.sunshine" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -34,7 +35,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.Main" />
         </activity>
-
+        <provider
+            android:authorities="com.weathermen.sunshine"
+            android:name=".data.WeatherProvider"
+            tools:ignore="ExportedContentProvider" />
     </application>
+
 
 </manifest>

@@ -23,38 +23,38 @@ public class ForecastDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String SQL_WEATHER_TABLE =
-                "CREATE TABLE " + ForecastContract.WeatherEntry.TABLE_NAME
+                "CREATE TABLE " + WeatherContract.WeatherEntry.TABLE_NAME
 
                         + OPEN_BLACKET
-                        + ForecastContract.WeatherEntry._ID + INTEGER_PRIMARY_KEY_AUTOINCREMENT + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_LOC_KEY + TEXT_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_DATETEXT + DATE_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_SHORT_DESC + TEXT_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_WEATHER_ID + INTEGER_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry._ID + INTEGER_PRIMARY_KEY_AUTOINCREMENT + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_LOC_KEY + TEXT_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_DATETEXT + DATE_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_SHORT_DESC + TEXT_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_WEATHER_ID + INTEGER_NOT_NULL + COMMA
 
-                        + ForecastContract.WeatherEntry.COLUMN_MIN_TEMP + REAL_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_MAX_TEMP + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_MIN_TEMP + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_MAX_TEMP + REAL_NOT_NULL + COMMA
 
-                        + ForecastContract.WeatherEntry.COLUMN_HUMIDITY + REAL_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_PRESSURE + REAL_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_WIND_SPEED + REAL_NOT_NULL + COMMA
-                        + ForecastContract.WeatherEntry.COLUMN_DEGREES + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_HUMIDITY + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_PRESSURE + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_WIND_SPEED + REAL_NOT_NULL + COMMA
+                        + WeatherContract.WeatherEntry.COLUMN_DEGREES + REAL_NOT_NULL + COMMA
 
-                        + "FOREIGN KEY (" + ForecastContract.WeatherEntry.COLUMN_LOC_KEY + ") REFERENCES " +
-                                ForecastContract.LocationEntry.TABLE_NAME + "(" + ForecastContract.LocationEntry._ID + "), "
-                        + "UNIQUE (" + ForecastContract.WeatherEntry.COLUMN_DATETEXT + COMMA
-                                + ForecastContract.WeatherEntry.COLUMN_LOC_KEY + ") " + ON_CONFLICT_REPLACE + ");";
+                        + "FOREIGN KEY (" + WeatherContract.WeatherEntry.COLUMN_LOC_KEY + ") REFERENCES " +
+                                WeatherContract.LocationEntry.TABLE_NAME + "(" + WeatherContract.LocationEntry._ID + "), "
+                        + "UNIQUE (" + WeatherContract.WeatherEntry.COLUMN_DATETEXT + COMMA
+                                + WeatherContract.WeatherEntry.COLUMN_LOC_KEY + ") " + ON_CONFLICT_REPLACE + ");";
 
         final String SQL_LOCATION_TABLE =
-                "CREATE TABLE " + ForecastContract.LocationEntry.TABLE_NAME
+                "CREATE TABLE " + WeatherContract.LocationEntry.TABLE_NAME
                         + OPEN_BLACKET
-                        + ForecastContract.LocationEntry._ID + INTEGER_PRIMARY_KEY_AUTOINCREMENT + COMMA
+                        + WeatherContract.LocationEntry._ID + INTEGER_PRIMARY_KEY_AUTOINCREMENT + COMMA
 
-                        + ForecastContract.LocationEntry.COLUMN_LOCATION_NAME + TEXT_NOT_NULL + COMMA
-                        + ForecastContract.LocationEntry.COLUMN_COORD_LAT + REAL_NOT_NULL + COMMA
-                        + ForecastContract.LocationEntry.COLUMN_COORD_LONG + REAL_NOT_NULL + COMMA
-                        + ForecastContract.LocationEntry.COLUMN_LOCATION_SETTING + TEXT_NOT_NULL + COMMA
-                        + "UNIQUE (" + ForecastContract.LocationEntry.COLUMN_LOCATION_SETTING + ") " + ON_CONFLICT_REPLACE + ");";
+                        + WeatherContract.LocationEntry.COLUMN_LOCATION_NAME + TEXT_NOT_NULL + COMMA
+                        + WeatherContract.LocationEntry.COLUMN_COORD_LAT + REAL_NOT_NULL + COMMA
+                        + WeatherContract.LocationEntry.COLUMN_COORD_LONG + REAL_NOT_NULL + COMMA
+                        + WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + TEXT_NOT_NULL + COMMA
+                        + "UNIQUE (" + WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + ") " + ON_CONFLICT_REPLACE + ");";
 
 
         sqLiteDatabase.execSQL(SQL_LOCATION_TABLE);
@@ -63,8 +63,8 @@ public class ForecastDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + ForecastContract.WeatherEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + ForecastContract.LocationEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + WeatherContract.WeatherEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + WeatherContract.LocationEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
-import com.weathermen.sunshine.data.ForecastContract.WeatherEntry;
-import com.weathermen.sunshine.data.ForecastContract.LocationEntry;
+import com.weathermen.sunshine.data.WeatherContract.WeatherEntry;
+import com.weathermen.sunshine.data.WeatherContract.LocationEntry;
 import com.weathermen.sunshine.data.ForecastDBHelper;
 
 import java.util.Map;
@@ -40,15 +40,13 @@ public class TestDb extends AndroidTestCase {
 
         assertTrue(locationRowId != -1);
 
-        Cursor cursor = db.query(LocationEntry.TABLE_NAME,
-                null,
-                null, null, null, null, null);
+        Cursor cursor = db.query(LocationEntry.TABLE_NAME, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             validateCursor(contentValues, cursor);        }
     }
 
-    public void testInsertWeatherInDb() {
+    public void testInsertReadWeatherDataInDb() {
         ForecastDBHelper forecastDBHelper = new ForecastDBHelper(mContext);
         SQLiteDatabase db = forecastDBHelper.getWritableDatabase();
         ContentValues locationContentValues = getLocationContentValues(TEST_NAME, LOCATION_SETTING, TEST_LAT, TEST_LNG);
@@ -59,16 +57,14 @@ public class TestDb extends AndroidTestCase {
 
         assertTrue(weatherRowId != -1);
 
-        Cursor cursor = db.query(WeatherEntry.TABLE_NAME,
-                null,
-                null, null, null, null, null);
+        Cursor cursor = db.query(WeatherEntry.TABLE_NAME, null, null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             validateCursor(contentValues, cursor);
         }
     }
 
-    private ContentValues getLocationContentValues(String testName, String locationSetting, double testLat, double testLng) {
+    public static ContentValues getLocationContentValues(String testName, String locationSetting, double testLat, double testLng) {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(LocationEntry.COLUMN_LOCATION_NAME, testName);
@@ -78,7 +74,7 @@ public class TestDb extends AndroidTestCase {
         return contentValues;
     }
 
-    private ContentValues getWeatherContentValues(long locationRowId) {
+    public static ContentValues getWeatherContentValues(long locationRowId) {
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(WeatherEntry.COLUMN_LOC_KEY, locationRowId);
@@ -94,16 +90,17 @@ public class TestDb extends AndroidTestCase {
         return contentValues;
     }
 
-    private long persistContentValues(String tableName, ContentValues values, SQLiteDatabase db) {
+    public static long persistContentValues(String tableName, ContentValues values, SQLiteDatabase db) {
         return db.insert(tableName, null, values);
     }
 
-    private static void validateCursor(ContentValues values, Cursor cursor) {
+    public static void validateCursor(ContentValues values, Cursor cursor) {
         Set<Map.Entry<String, Object>> valueSet = values.valueSet();
 
         for(Map.Entry<String, Object> entry: valueSet) {
             String columnName = entry.getKey();
             int idx = cursor.getColumnIndex(columnName);
+
             assertFalse(-1 == idx);
 
             String expectedValue = entry.getValue().toString();
